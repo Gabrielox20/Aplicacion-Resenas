@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    container_name: my_database
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend-resenas
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://myuser:mypassword@db/mydb
+    volumes:
+      - ./backend-resenas:/app
+      - ./backend-resenas/uploads:/app/uploads
+    depends_on:
+      - db
+
+  frontend:
+    build: ./aplicacion-resenas
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./aplicacion-resenas:/app
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

@@ -1,0 +1,18 @@
+# Node modules
+aplicaion-resenas/node_modules/
+
+# Logs
+logs/
+*.log
+
+# Directory for image uploads
+backend-resenas/uploads/
+
+# Dependency directories
+backend-resenas/node_modules/
+
+# Environment variables
+.env
+
+# Mac system files
+.DS_Store
