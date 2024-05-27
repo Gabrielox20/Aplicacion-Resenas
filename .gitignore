@@ -11,8 +11,5 @@ backend-resenas/uploads/
 # Dependency directories
 backend-resenas/node_modules/
 node_modules/
-# Environment variables
-.env
 
-# Mac system files
-.DS_Store
+

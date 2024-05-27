@@ -9,7 +9,7 @@ const EditPostModal = ({ post, onClose, onPostUpdated }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/post/${post.id}`, { text });
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/post/${post.id}`, { text });
       onPostUpdated(response.data);
       onClose();
     } catch (error) {

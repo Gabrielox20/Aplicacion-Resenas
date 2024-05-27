@@ -3,12 +3,12 @@ services:
   db:
     image: postgres:latest
     container_name: my_database
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - db_data:/var/lib/postgresql/data
 
@@ -16,9 +16,15 @@ services:
     build: ./backend-resenas
     container_name: backend
     ports:
-      - "5000:5000"
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      - DATABASE_URL=postgresql://myuser:mypassword@db/mydb
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      BACKEND_PORT: ${BACKEND_PORT}
     volumes:
       - ./backend-resenas:/app
       - ./backend-resenas/uploads:/app/uploads
@@ -29,7 +35,11 @@ services:
     build: ./aplicacion-resenas
     container_name: frontend
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    environment:
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
+      REACT_APP_IMG_URL: ${REACT_APP_IMG_URL}
+
     volumes:
       - ./aplicacion-resenas:/app
     depends_on:

@@ -12,7 +12,7 @@ const PostCommentPage = () => {
   const [showNewComment, setShowNewComment] = useState(false);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/post/${id}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/post/${id}`)
       .then(response => {
         setPost(response.data);
       })
@@ -20,7 +20,7 @@ const PostCommentPage = () => {
         console.error('Error fetching post:', error);
       });
 
-    axios.get(`http://localhost:5000/api/comments/${id}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
       .then(response => {
         setComments(response.data);
       })
@@ -33,6 +33,10 @@ const PostCommentPage = () => {
     setComments([...comments, newComment]);
   };
 
+  const handleCommentDeleted = (commentId) => {
+    setComments(comments.filter(comment => comment.id !== commentId));
+  };
+
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -40,7 +44,7 @@ const PostCommentPage = () => {
   return (
     <div>
       <PostContent post={post} />
-      <CommentList comments={comments} />
+      <CommentList comments={comments} onCommentDeleted={handleCommentDeleted} />
       <button onClick={() => setShowNewComment(true)}>Add New Comment</button>
       {showNewComment && (
         <NewComment

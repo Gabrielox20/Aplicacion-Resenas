@@ -1,17 +1,10 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const path = require('path');
-const { Pool } = require('pg');
+const pool = require('../server');
 
 const router = express.Router();
 
-const pool = new Pool({
-  user: 'myuser',
-  host: 'db',
-  database: 'mydb',
-  password: 'mypassword',
-  port: 5432,
-});
 
 // Middleware
 router.use(express.json());

@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE ${FRONTEND_PORT}
 
 CMD ["npm", "start"]

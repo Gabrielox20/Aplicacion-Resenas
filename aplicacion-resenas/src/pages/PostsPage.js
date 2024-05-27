@@ -14,7 +14,7 @@ const PostsPage = () => {
   }, []);
 
   const fetchPosts = () => {
-    axios.get('http://localhost:5000/api/posts')
+    axios.get(`${process.env.REACT_APP_API_URL}/posts`)
       .then(response => {
         setPosts(response.data);
       })
@@ -41,8 +41,8 @@ const PostsPage = () => {
 
   return (
     <div>
-      <h1>All Posts</h1>
-      <button onClick={() => setShowNewPost(true)}>Create New Post</button>
+      <h1>Lista de publicaciones</h1>
+      <button onClick={() => setShowNewPost(true)}>Crear nueva publicación</button>
       <div>
         {posts.map(post => (
           <Post
@@ -55,7 +55,7 @@ const PostsPage = () => {
       </div>
       {showNewPost && (
         <NewPost
-          onClose={() => setShowNewPost(false)}
+          onClose={() => setShowNewPost(null)}
           onPostCreated={handlePostCreated}
         />
       )}

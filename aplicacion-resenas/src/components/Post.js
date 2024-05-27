@@ -12,7 +12,7 @@ const Post = ({ post, onPostDeleted, onEdit }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/post/${post.id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/post/${post.id}`);
       onPostDeleted(post.id);
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -22,9 +22,9 @@ const Post = ({ post, onPostDeleted, onEdit }) => {
   return (
     <div className="post-container">
       <div className="post-content" onClick={handleClick}>
-        <img className="post-image" src={`http://localhost:5000/uploads/${post.image_path.split('/').pop()}`} alt="Post" />
+        <img className="post-image" src={`${process.env.REACT_APP_IMG_URL}/${post.image_path.split('/').pop()}`} alt="Post" />
         <div className="post-title">{post.text}</div>
-        <div className="post-rating">Rating: {post.rating}</div>
+        <div className="post-rating">Calificacion: {post.rating}</div>
       </div>
       <div className="post-actions">
         <button onClick={() => onEdit(post)} className="edit-button">

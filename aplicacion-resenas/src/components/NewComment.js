@@ -11,7 +11,7 @@ const NewComment = ({ postId, onClose, onCommentAdded }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/comments', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/comments`, {
         post_id: postId,
         username,
         comment_text: commentText,

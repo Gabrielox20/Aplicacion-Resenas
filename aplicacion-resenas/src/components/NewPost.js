@@ -13,7 +13,7 @@ const NewPostForm = ({ onClose, onPostCreated }) => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/posts', formData);  // Cambiar a 'http://backend:5000/api/posts' si está en Docker
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/posts`, formData);  
       onPostCreated(response.data);
       setText('');
       setImage(null);
@@ -46,7 +46,7 @@ const NewPostForm = ({ onClose, onPostCreated }) => {
               required
             />
           </div>
-          <button type="submit">Create Post</button>
+          <button type="submit" >Create Post</button>
           <button type="button" onClick={onClose}>Cancel</button>
         </form>
       </div>
